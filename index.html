@@ -11,12 +11,6 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="language-selector">
-                <select id="languageDropdown" class="language-dropdown" onchange="setLanguage(this.value)">
-                    <option value="en" data-flag="us">🇺🇸 US</option>
-                    <option value="pt" data-flag="br">🇧🇷 PT</option>
-                </select>
-            </div>
             <h1 data-text="main-title">🏛️ Oracle AI Agent Studio Foundations Associate</h1>
             <p data-text="subtitle">Official Certification Simulator - Real Questions</p>
         </div>
@@ -40,6 +34,10 @@
                 </ul>
             </div>
             <button class="btn" onclick="startQuiz()" data-text="start-quiz">🚀 Start Simulator</button>
+            <button class="btn" onclick="showReusabilityGuide()" data-text="reusability-guide-btn">📖 Reusability Guide</button>
+            <div style="text-align:center; margin-top: 24px; color: #888; font-size: 1rem;">
+                Developed by Dener Melo
+            </div>
         </div>
 
         <div id="quizContent" style="display: none;">
@@ -103,9 +101,6 @@
             <button class="btn mt-8" onclick="hideDetailedResults()" data-text="back-to-summary">⬅️ Back to Summary</button>
         </div>
     </div>
-    <footer style="text-align:center; margin-top: 32px; color: #888; font-size: 0.95em;">
-        &copy; Software created by Dener Melo
-    </footer>
     <script src="data.js"></script>
     <script src="app.js"></script>
 </body>
