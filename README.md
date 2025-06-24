@@ -76,12 +76,6 @@ This project is a simulator for the Oracle 1Z0-1145-1 – AI Agent Studio Founda
   - No Node.js, npm, or backend required. 100% client-side.
 - **Reusability Guide Button:**
   - "Reusability Guide" button restored on the start screen.
-- **Authorship Message:**
-  - "Software desenvolvido por Dener Melo" message centered below the main buttons.
-- **Language Selector Removed:**
-  - The language dropdown was removed from the interface.
-- **Ready for GitHub Pages:**
-  - Just upload the files and enable Pages.
 - **Visual Improvements:**
   - Clean, responsive, modern layout with TailwindCSS via CDN.
 
@@ -137,9 +131,6 @@ Segurança e boas práticas
 
 Monitoramento e gerenciamento de agentes
 
-🤖 Potencial com IA Generativa
-Este simulado conta com o suporte da IA Gemini (LLM), que pode:
-
 Gerar explicações detalhadas para cada questão
 
 Sugerir novas perguntas com base no conteúdo da prova
@@ -164,20 +155,13 @@ bash
 Copiar
 Editar
 git clone https://github.com/seu-usuario/oracle-ai-agent-simulado.git
+
 Acesse os arquivos de questões e inicie os estudos:
-
-questoes/questoes_simulado.json
-
-questoes/explicacoes_llm.md
-
-(Opcional) Use o Gemini para revisar respostas e explicações.
 
 🏅 Sobre a Certificação
 A certificação Oracle 1Z0-1145-1 (BETA) valida o conhecimento fundamental em:
 
 Criação e gerenciamento de agentes com Oracle AI Agent Studio
-
-Integração de IA generativa em soluções corporativas
 
 Uso responsável e eficiente de modelos de linguagem no ecossistema Oracle
 
