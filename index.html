@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle AI Agent Studio Foundations Associate - Official Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="language-selector">
+                <select id="languageDropdown" class="language-dropdown" onchange="setLanguage(this.value)">
+                    <option value="en" data-flag="us">🇺🇸 US</option>
+                    <option value="pt" data-flag="br">🇧🇷 PT</option>
+                </select>
+            </div>
+            <h1 data-text="main-title">🏛️ Oracle AI Agent Studio Foundations Associate</h1>
+            <p data-text="subtitle">Official Certification Simulator - Real Questions</p>
+        </div>
+
+        <div id="startScreen" class="start-screen">
+            <h2 data-text="welcome">Welcome to the Official Simulator!</h2>
+            <p data-text="description">Based on real Oracle 1Z0-1145-1 – AI Agent Studio Foundations Associate (Rel 1 BETA) questions. Aim for 93% like the reference candidate!</p>
+            <div class="version-selector" style="display: none;">
+                <button class="version-btn active" onclick="selectVersion('A')" data-text="version-a">Version A</button>
+                <button class="version-btn" onclick="selectVersion('B')" data-text="version-b">Version B</button>
+            </div>
+            <div class="quiz-info">
+                <h3 data-text="quiz-info-title">📋 Simulator Information:</h3>
+                <ul>
+                    <li data-text="info-1">20 unique Oracle certification questions per version</li>
+                    <li data-text="info-2">Questions are randomized for each quiz attempt</li>
+                    <li data-text="info-3">Focus: Templates, Tools, Security, Metrics</li>
+                    <li data-text="info-4">Detailed feedback and explanations provided at the end</li>
+                    <li data-text="info-5">Supports English and Portuguese versions</li>
+                    <li data-text="info-6">✨ AI-powered enhanced explanations available for each question!</li>
+                </ul>
+            </div>
+            <button class="btn" onclick="startQuiz()" data-text="start-quiz">🚀 Start Simulator</button>
+        </div>
+
+        <div id="quizContent" style="display: none;">
+            <div class="quiz-controls">
+                <div class="timer">⏱️ <span id="timeLeft">60:00</span></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div><span id="questionTypeTag"></span> <span data-text="question-label">Question</span> <span id="currentQuestion">1</span> <span data-text="of">of</span> <span id="totalQuestions">20</span></div>
+            </div>
+            <div class="question-container">
+                <div>
+                    <div class="question-number"><span data-text="question-label">Question</span> <span id="questionNum">1</span></div>
+                    <div class="question" id="questionText"></div>
+                    <div id="multiSelectInstruction" class="multi-select-instruction" style="display: none;"></div>
+                    <div class="options" id="optionsContainer"></div>
+                </div>
+                <div class="explanation" id="explanation" style="display: none;"></div>
+                <div class="tip" id="tip" style="display: none;">
+                    <div class="tip-title" data-text="tip-title">💡 Strategy Tip:</div>
+                    <div id="tipText"></div>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="btn" id="prevBtn" onclick="previousQuestion()" disabled data-text="previous">⬅️ Previous</button>
+                <button class="btn next" id="nextBtn" onclick="nextQuestion()" disabled data-text="next">Next ➡️</button>
+                <button class="btn" id="finishBtn" onclick="finishQuiz()" style="display: none;" data-text="finish">🏁 Finish</button>
+            </div>
+        </div>
+
+        <div id="results" style="display: none;">
+            <div class="results">
+                <h2 data-text="completed">🎉 Simulator Completed!</h2>
+                <div class="score" id="finalScore">0%</div>
+                <div class="score-details">
+                    <div class="score-card">
+                        <h3 data-text="correct-label">Correct</h3>
+                        <p id="correctCount">0</p>
+                    </div>
+                    <div class="score-card">
+                        <h3 data-text="incorrect-label">Incorrect</h3>
+                        <p id="incorrectCount">0</p>
+                    </div>
+                    <div class="score-card">
+                        <h3 data-text="time-used">Total Time</h3>
+                        <p id="timeUsed">00:00</p>
+                    </div>
+                    <div class="score-card">
+                        <h3 data-text="status">Status</h3>
+                        <p id="passStatus">-</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="viewDetailedResults()" data-text="view-details">🔍 View Detailed Results</button>
+                <button class="btn" onclick="restartQuiz()" data-text="restart">🔄 Try Again</button>
+            </div>
+        </div>
+        
+        <div id="detailedResults" style="display: none; padding: 40px;">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6" data-text="detailed-results-title">Detailed Results</h2>
+            <div id="detailedResultsContent"></div>
+            <button class="btn mt-8" onclick="hideDetailedResults()" data-text="back-to-summary">⬅️ Back to Summary</button>
+        </div>
+    </div>
+    <footer style="text-align:center; margin-top: 32px; color: #888; font-size: 0.95em;">
+        &copy; Software created by Dener Melo
+    </footer>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
