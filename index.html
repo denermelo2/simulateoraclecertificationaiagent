@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oracle AI Agent Studio Foundations Associate - Official Simulator</title>
+    <title>🏛️ AI Agent Studio Foundations Associate</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
@@ -11,33 +11,30 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1 data-text="main-title">🏛️ Oracle AI Agent Studio Foundations Associate</h1>
-            <p data-text="subtitle">Official Certification Simulator - Real Questions</p>
+            <h1>AI Agent Studio Foundations Associate</h1>
+            <p>Oracle Fusion AI Agent Studio Foundations Associate - Rel 1 - BETA (1Z0-1145-1)</p>
         </div>
 
         <div id="startScreen" class="start-screen">
-            <h2 data-text="welcome">Welcome to the Official Simulator!</h2>
-            <p data-text="description">Based on real Oracle 1Z0-1145-1 – AI Agent Studio Foundations Associate (Rel 1 BETA) questions. Aim for 93% like the reference candidate!</p>
-            <div class="version-selector" style="display: none;">
-                <button class="version-btn active" onclick="selectVersion('A')" data-text="version-a">Version A</button>
-                <button class="version-btn" onclick="selectVersion('B')" data-text="version-b">Version B</button>
-            </div>
+            <h2>Welcome to the Practice Simulator!</h2>
+            <p>Practice with real questions from previous certification exams. Aim for 70% to pass!</p>
             <div class="quiz-info">
-                <h3 data-text="quiz-info-title">📋 Simulator Information:</h3>
+                <h3>📋 Simulator Information:</h3>
                 <ul>
-                    <li data-text="info-1">20 unique Oracle certification questions per version</li>
-                    <li data-text="info-2">Questions are randomized for each quiz attempt</li>
-                    <li data-text="info-3">Focus: Templates, Tools, Security, Metrics</li>
-                    <li data-text="info-4">Detailed feedback and explanations provided at the end</li>
-                    <li data-text="info-5">Supports English and Portuguese versions</li>
-                    <li data-text="info-6">✨ AI-powered enhanced explanations available for each question!</li>
+                    <li>25 unique certification questions per session</li>
+                    <li>Questions are randomized for each quiz attempt</li>
+                    <li>Focus: Templates, Tools, Security, Metrics</li>
+                    <li>Detailed feedback and explanations provided at the end</li>
+                    <li>✨ Enhanced explanations available for each question!</li>
                 </ul>
             </div>
             <button class="btn" onclick="startQuiz()" data-text="start-quiz">🚀 Start Simulator</button>
             <button class="btn" onclick="showReusabilityGuide()" data-text="reusability-guide-btn">📖 Reusability Guide</button>
-            <div style="text-align:center; margin-top: 24px; color: #888; font-size: 1rem;">
+            <button class="btn" onclick="showScoreHistory()" id="scoreHistoryBtn" style="margin-left:10px;">📊 Score History</button>
+            <div class="footer-signature" style="text-align:center; margin-top: 24px; color: #bbb; font-size: 0.98rem;">
                 Developed by Dener Melo
             </div>
+            <div id="historyContainer" style="margin-top: 32px;"></div>
         </div>
 
         <div id="quizContent" style="display: none;">
@@ -46,7 +43,7 @@
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
-                <div><span id="questionTypeTag"></span> <span data-text="question-label">Question</span> <span id="currentQuestion">1</span> <span data-text="of">of</span> <span id="totalQuestions">20</span></div>
+                <div><span id="questionTypeTag"></span> <span data-text="question-label">Question</span> <span id="currentQuestion">1</span> <span data-text="of">of</span> <span id="totalQuestions">25</span></div>
             </div>
             <div class="question-container">
                 <div>
@@ -99,6 +96,13 @@
             <h2 class="text-2xl font-bold text-gray-800 mb-6" data-text="detailed-results-title">Detailed Results</h2>
             <div id="detailedResultsContent"></div>
             <button class="btn mt-8" onclick="hideDetailedResults()" data-text="back-to-summary">⬅️ Back to Summary</button>
+        </div>
+    </div>
+    <div id="scoreHistoryModal" style="display:none; position:fixed; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.25); z-index:9999; align-items:center; justify-content:center;">
+        <div style="background:white; border-radius:16px; max-width:350px; margin:auto; padding:32px 24px; box-shadow:0 8px 32px rgba(0,0,0,0.18); text-align:center;">
+            <h3 style="font-size:1.3em; font-weight:600; margin-bottom:18px;">Last 3 Scores</h3>
+            <div id="scoreHistoryContent" style="font-size:1.1em; margin-bottom:18px;"></div>
+            <button class="btn" onclick="closeScoreHistory()">Close</button>
         </div>
     </div>
     <script src="data.js"></script>

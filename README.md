@@ -1,83 +1,31 @@
-# Simulador Oficial - Oracle AI Agent Studio Foundations Associate
+# AI Agent Studio Foundations Associate - Exam Simulator
 
-## 🇧🇷 Português
+## 🇬🇧 English
 
-Este projeto é um simulador para a certificação Oracle 1Z0-1145-1 – AI Agent Studio Foundations Associate (Rel 1 BETA), totalmente modularizado e pronto para uso local ou publicação no GitHub Pages.
-
----
-
-### Principais Alterações e Funcionalidades
-
-- **Código Modularizado:**
-  - `index.html`: Estrutura visual, sem scripts ou estilos inline.
-  - `style.css`: Todo o CSS customizado.
-  - `app.js`: Toda a lógica do simulador (fluxo, navegação, renderização dinâmica).
-  - `data.js`: Textos multilíngues e configurações gerais.
-  - `questionsoffical.js`: Banco de questões oficiais em inglês, utilizado pelo simulador (variável global `window.officialQuestionBank`).
-  - `questions_pt.js`: Template para banco de questões em português, armazenado em `window.officialQuestionBankPT` (pode ser preenchido para suporte total ao idioma PT).
-- **Remoção de Dependências Desnecessárias:**
-  - Não utiliza Node.js, npm ou backend. 100% client-side.
-- **Botão de Guia de Reusabilidade:**
-  - Botão "Reusability Guide" restaurado na tela inicial.
-- **Mensagem de Autoria:**
-  - Mensagem "Software desenvolvido por Dener Melo" centralizada abaixo dos botões principais.
-- **Remoção do Seletor de Idioma:**
-  - O dropdown de seleção de idioma foi removido da interface.
-- **Pronto para GitHub Pages:**
-  - Basta subir os arquivos para o repositório e ativar o Pages.
-- **Ajustes Visuais:**
-  - Layout limpo, responsivo e moderno, com TailwindCSS via CDN.
+This project is a simulator for the AI Agent Studio Foundations Associate certification exam, with real past exam questions, a modern UI, and a transparent scoring system.
 
 ---
 
-### Como Rodar Localmente
+### Main Features & Improvements
 
-1. Clone o repositório:
-   ```bash
-   git clone <url-do-repositorio>
-   cd simulateoraclecertificationaiagent
-   ```
-2. Abra o arquivo `index.html` no navegador.
-
----
-
-### Como Publicar no GitHub Pages
-
-1. Faça push da branch principal para o GitHub.
-2. No repositório, acesse Settings > Pages e selecione a branch principal e a pasta raiz (`/`).
-3. O simulador estará disponível em `https://<seu-usuario>.github.io/<nome-do-repositorio>/`.
-
----
-
-### Licença
-
-MIT
-
----
-
-# Official Simulator - Oracle AI Agent Studio Foundations Associate
-
-## 🇺🇸 English
-
-This project is a simulator for the Oracle 1Z0-1145-1 – AI Agent Studio Foundations Associate (Rel 1 BETA) certification, fully modularized and ready for local use or GitHub Pages deployment.
-
----
-
-### Main Changes and Features
-
-- **Modularized Code:**
-  - `index.html`: Visual structure only, no inline scripts or styles.
-  - `style.css`: All custom CSS.
-  - `app.js`: All simulator logic (flow, navigation, dynamic rendering).
-  - `data.js`: Multilingual texts and general settings.
-  - `questionsoffical.js`: Official question bank in English, used by the simulator (global variable `window.officialQuestionBank`).
-  - `questions_pt.js`: Template for the Portuguese question bank, stored in `window.officialQuestionBankPT` (can be filled for full PT support).
-- **No Unnecessary Dependencies:**
-  - No Node.js, npm, or backend required. 100% client-side.
-- **Reusability Guide Button:**
-  - "Reusability Guide" button restored on the start screen.
-- **Visual Improvements:**
-  - Clean, responsive, modern layout with TailwindCSS via CDN.
+- **No Oracle affiliation or official branding.**
+- **English only.**
+- **Question bank centralized in `questionsoffical.js`.**
+- **All texts revised for clarity and neutrality.**
+- **README in English and Portuguese, no Oracle affiliation.**
+- **.gitignore added for duplicate question files.**
+- **UI/UX:**
+  - Improved Strategy Tip block (spacing, color, visual).
+  - Status (✔/❌) for each question in detailed results.
+  - User score and pass/fail status (>=70%) highlighted in results.
+  - Explanation block border: green if correct, red if incorrect.
+  - Subtle "Developed by Dener Melo" signature on all pages.
+  - Score, correct count, and status in green if passed, red if not.
+- **Functionality:**
+  - Pass criteria: 70% (minimum 32 out of 45).
+  - Last 3 attempts saved in localStorage, viewable on start screen.
+  - Removed A/B version support.
+  - Modularized JS for maintainability.
 
 ---
 
@@ -101,6 +49,60 @@ This project is a simulator for the Oracle 1Z0-1145-1 – AI Agent Studio Founda
 ---
 
 ### License
+
+MIT
+
+---
+
+## 🇧🇷 Português
+
+Este projeto é um simulador para a certificação AI Agent Studio Foundations Associate, com questões reais de provas anteriores, interface moderna e sistema de pontuação transparente.
+
+---
+
+### Principais Funcionalidades & Melhorias
+
+- **Sem afiliação ou marca Oracle.**
+- **Apenas em inglês.**
+- **Banco de questões centralizado em `questionsoffical.js`.**
+- **Textos revisados para clareza e neutralidade.**
+- **README em inglês e português, sem afiliação Oracle.**
+- **.gitignore para arquivos duplicados de questões.**
+- **UI/UX:**
+  - Bloco de Dica de Estratégia aprimorado (espaçamento, cor, visual).
+  - Status (✔/❌) para cada questão nos resultados detalhados.
+  - Score do usuário e status de aprovação (>=70%) destacados nos resultados.
+  - Borda da explicação: verde se correta, vermelha se incorreta.
+  - Assinatura sutil "Developed by Dener Melo" em todas as páginas.
+  - Score, acertos e status em verde se aprovado, vermelho se não.
+- **Funcionalidades:**
+  - Critério de aprovação: 70% (mínimo 32 de 45).
+  - Histórico das últimas 3 tentativas salvo no localStorage, visualizável na tela inicial.
+  - Removido suporte a versões A/B.
+  - JS modularizado para facilitar manutenção.
+
+---
+
+### Como Rodar Localmente
+
+1. Clone o repositório:
+   ```bash
+   git clone <url-do-repositorio>
+   cd simulateoraclecertificationaiagent
+   ```
+2. Abra o arquivo `index.html` no navegador.
+
+---
+
+### Como Publicar no GitHub Pages
+
+1. Faça push da branch principal para o GitHub.
+2. No repositório, acesse Settings > Pages e selecione a branch principal e a pasta raiz (`/`).
+3. O simulador estará disponível em `https://<seu-usuario>.github.io/<nome-do-repositorio>/`.
+
+---
+
+### Licença
 
 MIT
 

@@ -14,6 +14,8 @@ let userAnswers;
 let timeLeft;
 let timerInterval;
 let startTime;
+const PASS_SCORE = 65;
+const TOTAL_QUESTIONS = 25;
 let currentLanguage = 'en';
 let selectedVersion = 'A';
 
@@ -53,25 +55,17 @@ async function startQuiz() {
     document.getElementById('quizContent').style.display = 'none';
     document.getElementById('results').style.display = 'none';
     document.getElementById('detailedResults').style.display = 'none';
-    document.body.insertAdjacentHTML('beforeend', `<div id="loadingOverlay" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center text-white text-xl z-50"><div class="spinner mr-3"></div> Gerando perguntas com IA...</div>`);
-    const tempOfficialQuestions = [...window.officialQuestionBank];
-    shuffleArray(tempOfficialQuestions);
-    const numOfficialQuestions = 15;
-    const numAIGeneratedQuestions = 5;
-    currentQuizQuestions = tempOfficialQuestions.slice(0, numOfficialQuestions).map(q => ({ ...q, typeTag: 'official' }));
-    const aiQuestionSeeds = tempOfficialQuestions.slice(numOfficialQuestions, numOfficialQuestions + numAIGeneratedQuestions);
-    const aiGeneratedPromises = aiQuestionSeeds.map(async (seedQuestion) => {
-        try {
-            const aiQuestion = await generateQuestionWithAI(seedQuestion);
-            return { ...aiQuestion, typeTag: 'ai-generated' };
-        } catch (error) {
-            console.error("Erro ao gerar pergunta com IA, usando oficial:", error);
-            return { ...seedQuestion, typeTag: 'official' };
-        }
-    });
-    const generatedQuestions = await Promise.all(aiGeneratedPromises);
-    currentQuizQuestions = currentQuizQuestions.concat(generatedQuestions);
-    shuffleArray(currentQuizQuestions);
+    document.body.insertAdjacentHTML('beforeend', `<div id="loadingOverlay" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center text-white text-xl z-50"><div class="spinner mr-3"></div> Loading questions...</div>`);
+    let tempQuestions = [...window.officialQuestionBank];
+    shuffleArray(tempQuestions);
+    // Garante que não haja repetição
+    let selectedQuestions = [];
+    if (tempQuestions.length <= TOTAL_QUESTIONS) {
+        selectedQuestions = tempQuestions;
+    } else {
+        selectedQuestions = tempQuestions.slice(0, TOTAL_QUESTIONS);
+    }
+    currentQuizQuestions = selectedQuestions.map(q => ({ ...q, typeTag: 'official' }));
     userAnswers = Array(currentQuizQuestions.length).fill(null).map(() => []);
     document.getElementById('totalQuestions').textContent = currentQuizQuestions.length;
     document.getElementById('loadingOverlay').remove();
@@ -320,7 +314,7 @@ function finishQuiz(isReRender = false) {
     });
     sessionStorage.setItem('quizResults', JSON.stringify(quizResults));
     const score = (correctCount / currentQuizQuestions.length) * 100;
-    const passStatus = score >= 93 ? window.texts[currentLanguage].approved : window.texts[currentLanguage].failed;
+    const passStatus = score >= PASS_SCORE ? window.texts[currentLanguage].approved : window.texts[currentLanguage].failed;
     const totalTimeInSeconds = sessionStorage.getItem('totalTime');
     document.getElementById('finalScore').textContent = `${score.toFixed(0)}%`;
     document.getElementById('correctCount').textContent = correctCount;
@@ -332,6 +326,9 @@ function finishQuiz(isReRender = false) {
     document.getElementById('quizContent').style.display = 'none';
     document.getElementById('results').style.display = 'block';
     document.getElementById('detailedResults').style.display = 'none';
+    
+    // Salvar pontuação no histórico
+    saveScoreToHistory(score, correctCount, currentQuizQuestions.length);
 }
 
 function viewDetailedResults() {
@@ -493,6 +490,76 @@ function showReusabilityGuide() {
     document.getElementById('closeGuideBtn').onclick = () => overlay.remove();
 }
 
+// Exibir histórico na tela inicial
+function renderHistory() {
+    const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+    const container = document.getElementById('historyContainer');
+    if (!container) return;
+    if (history.length === 0) {
+        container.innerHTML = '<p>No attempts yet.</p>';
+        return;
+    }
+    container.innerHTML = '<h3>Last 3 Attempts</h3>' +
+        '<ul>' +
+        history.map(h => `<li><b>Date:</b> ${h.date} | <b>Score:</b> ${h.score}% | <b>Correct:</b> ${h.correct}/${TOTAL_QUESTIONS}</li>`).join('') +
+        '</ul>';
+}
+
+// Funções para o histórico de pontuação
+function showScoreHistory() {
+    const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+    const modal = document.getElementById('scoreHistoryModal');
+    const content = document.getElementById('scoreHistoryContent');
+    
+    if (history.length === 0) {
+        content.innerHTML = '<p style="color: #666; font-style: italic;">No scores recorded yet.</p>';
+    } else {
+        const last3Scores = history.slice(0, 3);
+        content.innerHTML = last3Scores.map((score, index) => {
+            const status = score.score >= PASS_SCORE ? '✅ PASSED' : '❌ FAILED';
+            const date = new Date(score.date).toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            return `
+                <div style="margin-bottom: 12px; padding: 12px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid ${score.score >= PASS_SCORE ? '#10b981' : '#ef4444'};">
+                    <div style="font-weight: 600; color: #374151;">Attempt ${index + 1}</div>
+                    <div style="font-size: 1.2em; font-weight: 700; color: ${score.score >= PASS_SCORE ? '#10b981' : '#ef4444'};">
+                        ${score.score}% ${status}
+                    </div>
+                    <div style="font-size: 0.9em; color: #6b7280;">
+                        ${score.correct}/${TOTAL_QUESTIONS} correct • ${date}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    modal.style.display = 'flex';
+}
+
+function closeScoreHistory() {
+    document.getElementById('scoreHistoryModal').style.display = 'none';
+}
+
+// Salvar pontuação no histórico
+function saveScoreToHistory(score, correct, total) {
+    const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+    const newScore = {
+        score: score,
+        correct: correct,
+        total: total,
+        date: new Date().toISOString()
+    };
+    
+    history.unshift(newScore);
+    if (history.length > 10) history = history.slice(0, 10); // Manter apenas os últimos 10
+    localStorage.setItem('quizHistory', JSON.stringify(history));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const langDropdown = document.getElementById('languageDropdown');
     if (langDropdown) {
@@ -502,6 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     applyLanguage();
     selectVersion('A');
+    renderHistory();
 });
 
 window.startQuiz = startQuiz;
@@ -513,4 +581,6 @@ window.restartQuiz = restartQuiz;
 window.hideDetailedResults = hideDetailedResults;
 window.setLanguage = setLanguage;
 window.selectVersion = selectVersion;
-window.showReusabilityGuide = showReusabilityGuide; 
+window.showReusabilityGuide = showReusabilityGuide;
+window.showScoreHistory = showScoreHistory;
+window.closeScoreHistory = closeScoreHistory; 
